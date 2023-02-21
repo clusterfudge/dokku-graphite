@@ -88,7 +88,7 @@ docker_ports_options() {
   declare desc="export a list of exposed ports"
   declare PORTS=("$@")
   for ((i = 0; i < ${#PLUGIN_DATASTORE_PORTS[@]}; i++)); do
-    echo -n "-p ${PORTS[i]}:${PLUGIN_DATASTORE_PORTS[i]} "
+    echo -n "-p ${PORTS[i]}:${PLUGIN_DATASTORE_PORTS[i]}/${PLUGIN_DATASTORE_PROTOCOLS[i]} "
   done
 }
 
@@ -508,7 +508,7 @@ service_exposed_ports() {
   [[ ! -f $PORT_FILE ]] && echo '-' && return 0
   local PORTS=($(cat "$PORT_FILE"))
   for ((i = 0; i < ${#PLUGIN_DATASTORE_PORTS[@]}; i++)); do
-    echo -n "${PLUGIN_DATASTORE_PORTS[i]}->${PORTS[i]} "
+    echo -n "${PLUGIN_DATASTORE_PORTS[i]}->${PORTS[i]} ${PLUGIN_DATASTORE_PROTOCOLS[i]}"
   done
 }
 
